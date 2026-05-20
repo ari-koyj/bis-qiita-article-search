@@ -1,0 +1,185 @@
+export const TOP_PAGE_MOCK = {
+  userName: "Tanaka",
+  userInitials: "TK",
+  totalResults: 32,
+  totalPages: 6,
+  searchResults: [
+    {
+      id: 1,
+      title:
+        "Reactのレンダリング最適化完全ガイド ─ useMemo・useCallback・memoを正しく",
+      tags: ["React", "TypeScript", "パフォーマンス"],
+      author: "takuya_dev",
+      authorInitials: "TK",
+      date: "2024/11/20",
+      shared: true,
+    },
+    {
+      id: 2,
+      title:
+        "React Server Componentsで変わるデータフェッチのベストプラクティス",
+      tags: ["React", "Next.js"],
+      author: "yamamoto_fe",
+      authorInitials: "YM",
+      date: "2024/11/15",
+      shared: false,
+    },
+    {
+      id: 3,
+      title: "TypeScript 5.3の新機能まとめ ─ import attributesとその活用法",
+      tags: ["TypeScript", "JavaScript"],
+      author: "sn_engineer",
+      authorInitials: "SN",
+      date: "2024/11/10",
+      shared: false,
+    },
+    {
+      id: 4,
+      title: "Zustandで状態管理をシンプルに ─ ReduxからZustandへの移行ガイド",
+      tags: ["React", "Zustand", "状態管理"],
+      author: "rika_frontend",
+      authorInitials: "RK",
+      date: "2024/11/08",
+      shared: true,
+    },
+    {
+      id: 5,
+      title:
+        "React Hook Formで作るバリデーション付きフォーム ─ zod連携パターン",
+      tags: ["React", "TypeScript"],
+      author: "k_watanabe",
+      authorInitials: "KW",
+      date: "2024/11/03",
+      shared: false,
+    },
+    {
+      id: 6,
+      title:
+        "Prisma × Supabaseではじめる型安全なDB操作 ─ マイグレーション完全解説",
+      tags: ["Prisma", "Supabase"],
+      author: "ms_backend",
+      authorInitials: "MS",
+      date: "2024/10/28",
+      shared: false,
+    },
+  ],
+  recommendArticles: [
+    {
+      id: 1,
+      title:
+        "Reactのレンダリング最適化完全ガイド ─ useMemo・useCallback・memoを正しく",
+      tags: ["React", "TypeScript"],
+      author: "takuya_dev",
+      authorInitials: "TK",
+      date: "2024/11/20",
+      recommendedBy: "yamamoto_fe",
+      recommendedByInitials: "YM",
+      isOwn: false,
+    },
+    {
+      id: 2,
+      title:
+        "Prisma × Supabaseではじめる型安全なDB操作 ─ マイグレーション完全解説",
+      tags: ["Prisma", "Supabase"],
+      author: "ms_backend",
+      authorInitials: "MS",
+      date: "2024/11/12",
+      recommendedBy: "Tanaka",
+      recommendedByInitials: "TK",
+      isOwn: true,
+    },
+    {
+      id: 3,
+      title:
+        "Next.js App RouterとPages Routerの違いを完全整理 ─ 移行判断フローチャート付き",
+      tags: ["Next.js", "React"],
+      author: "k_watanabe",
+      authorInitials: "KW",
+      date: "2024/11/05",
+      recommendedBy: "shinya_infra",
+      recommendedByInitials: "SH",
+      isOwn: false,
+    },
+    {
+      id: 4,
+      title:
+        "Docker Composeで開発環境を一発構築 ─ PostgreSQL + Redis + Nginxの構成例",
+      tags: ["Docker", "インフラ"],
+      author: "shinya_infra",
+      authorInitials: "SH",
+      date: "2024/10/30",
+      recommendedBy: "rina_fullstack",
+      recommendedByInitials: "RN",
+      isOwn: false,
+    },
+    {
+      id: 5,
+      title: "Claude API × TypeScript で社内ドキュメント検索ツールを作った話",
+      tags: ["AI", "TypeScript", "LLM"],
+      author: "rina_fullstack",
+      authorInitials: "RN",
+      date: "2024/10/18",
+      recommendedBy: "k_watanabe",
+      recommendedByInitials: "KW",
+      isOwn: false,
+    },
+    {
+      id: 6,
+      title: "Zustandで状態管理をシンプルに ─ ReduxからZustandへの移行ガイド",
+      tags: ["React", "Zustand"],
+      author: "rika_frontend",
+      authorInitials: "RK",
+      date: "2024/10/10",
+      recommendedBy: "yamamoto_fe",
+      recommendedByInitials: "YM",
+      isOwn: false,
+    },
+    {
+      id: 7,
+      title:
+        "Go言語で作るシンプルなHTTPサーバー入門 ─ net/httpパッケージを完全理解する",
+      tags: ["Go", "バックエンド"],
+      author: "yamamoto_go",
+      authorInitials: "YO",
+      date: "2024/10/05",
+      recommendedBy: "Tanaka",
+      recommendedByInitials: "TK",
+      isOwn: true,
+    },
+  ],
+};
+
+export const MY_PAGE_MOCK = {
+  userName: "Tanaka",
+  userInitials: "TK",
+  recommendCount: 3,
+  myRecommends: [
+    {
+      id: 1,
+      title:
+        "Reactのレンダリング最適化完全ガイド ─ useMemo・useCallback・memoを正しく",
+      tags: ["React", "TypeScript", "パフォーマンス"],
+      author: "takuya_dev",
+      authorInitials: "TK",
+      date: "2024/11/20",
+    },
+    {
+      id: 2,
+      title:
+        "Prisma × Supabaseではじめる型安全なDB操作 ─ マイグレーション完全解説",
+      tags: ["Prisma", "Supabase"],
+      author: "ms_backend",
+      authorInitials: "MS",
+      date: "2024/11/12",
+    },
+    {
+      id: 3,
+      title:
+        "Go言語で作るシンプルなHTTPサーバー入門 ─ net/httpパッケージを完全理解する",
+      tags: ["Go", "バックエンド"],
+      author: "yamamoto_go",
+      authorInitials: "YO",
+      date: "2024/10/05",
+    },
+  ],
+};
