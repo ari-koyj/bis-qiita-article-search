@@ -1,4 +1,5 @@
-import Link from "next/link";
+import ArticleCard from "@/components/ArticleCard";
+import Header from "@/components/Header";
 import { MY_PAGE_MOCK } from "@/Mock";
 
 export default function MyPage() {
@@ -7,33 +8,7 @@ export default function MyPage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-stone-50 text-zinc-900">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center gap-8 px-6 py-4">
-          <div className="flex items-center gap-2">
-            <span className="size-2.5 rounded-full bg-green-500" />
-            <span className="font-bold">Qiita Reader</span>
-          </div>
-          <nav className="flex gap-6 text-sm">
-            <Link href="/" className="text-zinc-600 hover:text-zinc-900">
-              検索ページに戻る
-            </Link>
-          </nav>
-          <div className="ml-auto flex items-center gap-3 text-sm">
-            <span className="flex size-8 items-center justify-center rounded-full bg-sky-100 text-xs font-medium text-sky-700">
-              {MY_PAGE_MOCK.userInitials}
-            </span>
-            <span className="text-zinc-600">
-              こんにちは、{MY_PAGE_MOCK.userName}さん
-            </span>
-            <button
-              type="button"
-              className="rounded-lg border border-zinc-300 bg-white px-4 py-1.5 font-medium hover:bg-zinc-50"
-            >
-              ログアウト
-            </button>
-          </div>
-        </div>
-      </header>
+      <Header page="mypage" />
 
       <section className="border-b border-zinc-200 bg-orange-50">
         <div className="mx-auto flex max-w-6xl items-center gap-5 px-6 py-6">
@@ -81,72 +56,15 @@ export default function MyPage() {
 
         <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {MY_PAGE_MOCK.myRecommends.map((article) => (
-            <article
+            <ArticleCard
               key={article.id}
-              className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md"
-            >
-              <h3 className="font-bold leading-relaxed">{article.title}</h3>
-
-              <div className="mt-3 flex flex-wrap gap-1.5">
-                {article.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full bg-green-50 px-2.5 py-0.5 text-xs text-green-700"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-3 flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2">
-                  <span className="flex size-6 items-center justify-center rounded-full bg-orange-100 text-xs font-medium text-orange-700">
-                    {article.authorInitials}
-                  </span>
-                  <span className="text-zinc-700">{article.author}</span>
-                </div>
-                <span className="text-zinc-500">{article.date}</span>
-              </div>
-
-              <div className="mt-3 flex items-center justify-between border-t border-zinc-100 pt-3">
-                <a
-                  href="#"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Qiita記事を開く"
-                  className="flex size-8 items-center justify-center rounded-lg border border-zinc-300 hover:bg-zinc-50"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="size-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M7 17L17 7M7 7h10v10" />
-                  </svg>
-                </a>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-1 rounded-lg border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-50"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="size-4"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m3 0v14a1 1 0 01-1 1H6a1 1 0 01-1-1V6h14z" />
-                  </svg>
-                  削除
-                </button>
-              </div>
-            </article>
+              variant="mypage"
+              title={article.title}
+              tags={article.tags}
+              author={article.author}
+              authorInitials={article.authorInitials}
+              date={article.date}
+            />
           ))}
         </div>
       </main>

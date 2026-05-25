@@ -1,17 +1,12 @@
+import Header from "@/components/Header";
+
 export default function LoginPage() {
   // ロジック(OAuth・メールログイン処理など)はあとで追加する
   // いまはモックなしの静的テンプレート
 
   return (
     <div className="flex min-h-screen flex-col bg-stone-50 text-zinc-900">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center px-6 py-4">
-          <div className="flex items-center gap-2">
-            <span className="size-2.5 rounded-full bg-green-500" />
-            <span className="font-bold">Qiita Reader</span>
-          </div>
-        </div>
-      </header>
+      <Header page="login" />
 
       <main className="flex flex-1 items-start justify-center px-4 py-16">
         <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
