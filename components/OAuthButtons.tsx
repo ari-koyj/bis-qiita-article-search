@@ -17,11 +17,11 @@ export function OAuthButtons() {
   }
 
   return (
-    <div className="mt-6 space-y-3">
+    <div className="space-y-3">
       <button
         type="button"
         onClick={() => signIn("github")}
-        className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700"
+        className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 py-2.5 font-medium hover:bg-zinc-50"
       >
         <svg
           viewBox="0 0 24 24"
@@ -37,7 +37,7 @@ export function OAuthButtons() {
       <button
         type="button"
         onClick={() => signIn("google")}
-        className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-900 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700"
+        className="flex w-full items-center justify-center gap-2 rounded-lg border border-zinc-300 bg-white px-4 py-2.5 font-medium hover:bg-zinc-50"
       >
         <svg viewBox="0 0 48 48" className="h-5 w-5" aria-hidden="true">
           <path
