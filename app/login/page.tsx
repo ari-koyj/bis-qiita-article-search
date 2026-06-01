@@ -1,14 +1,9 @@
-import Header from "@/components/Header";
-
 export default function LoginPage() {
   // ロジック(OAuth・メールログイン処理など)はあとで追加する
   // いまはモックなしの静的テンプレート
 
   return (
-    <div className="flex min-h-screen flex-col bg-stone-50 text-zinc-900">
-      <Header page="login" />
-
-      <main className="flex flex-1 items-start justify-center px-4 py-16">
+    <main className="flex flex-1 items-start justify-center px-4 py-16">
         <div className="w-full max-w-md rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
           <div className="text-center">
             <h1 className="text-2xl font-bold">ログイン / 新規登録</h1>
@@ -107,6 +102,5 @@ export default function LoginPage() {
           </p>
         </div>
       </main>
-    </div>
   );
 }

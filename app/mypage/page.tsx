@@ -1,5 +1,4 @@
 import ArticleCard from "@/components/ArticleCard";
-import Header from "@/components/Header";
 import { MY_PAGE_MOCK } from "@/Mock";
 
 export default function MyPage() {
@@ -7,9 +6,7 @@ export default function MyPage() {
   // いまは MY_PAGE_MOCK を直接埋め込む静的テンプレート
 
   return (
-    <div className="flex min-h-screen flex-col bg-stone-50 text-zinc-900">
-      <Header page="mypage" />
-
+    <>
       <section className="border-b border-zinc-200 bg-orange-50">
         <div className="mx-auto flex max-w-6xl items-center gap-5 px-6 py-6">
           <span className="flex size-16 items-center justify-center rounded-full bg-sky-100 text-lg font-medium text-sky-700">
@@ -68,6 +65,6 @@ export default function MyPage() {
           ))}
         </div>
       </main>
-    </div>
+    </>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import ArticleCard from "@/components/ArticleCard";
-import Header from "@/components/Header";
 import Pagination from "@/components/Pagination";
 import SearchForm from "@/components/SearchForm";
 import Tabs from "@/components/Tabs";
@@ -14,14 +13,7 @@ export default function TopPage() {
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
-    <div className="flex min-h-screen flex-col bg-stone-50 text-zinc-900">
-      <Header
-        page="top"
-        isLoggedIn={true}
-        userName={TOP_PAGE_MOCK.userName}
-        userInitials={TOP_PAGE_MOCK.userInitials}
-      />
-
+    <>
       <SearchForm
         onSearch={(params) => {
           console.log("search:", params);
@@ -88,6 +80,6 @@ export default function TopPage() {
           }
         />
       </main>
-    </div>
+    </>
   );
 }
