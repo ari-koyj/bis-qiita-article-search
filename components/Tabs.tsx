@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
-} from "@headlessui/react";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import type { ReactNode } from "react";
 
 type Props = {
@@ -14,6 +8,8 @@ type Props = {
   recommendsCount: number;
   resultsPanel: ReactNode;
   recommendsPanel: ReactNode;
+  selectedIndex?: number;
+  onChange?: (index: number) => void;
 };
 
 const tabClassName = ({ selected }: { selected: boolean }) =>
@@ -31,9 +27,11 @@ export default function Tabs({
   recommendsCount,
   resultsPanel,
   recommendsPanel,
+  selectedIndex,
+  onChange,
 }: Props) {
   return (
-    <TabGroup>
+    <TabGroup selectedIndex={selectedIndex} onChange={onChange}>
       <TabList className="flex gap-6 border-b border-zinc-200">
         <Tab className={tabClassName}>
           {({ selected }) => (

@@ -5,6 +5,10 @@ import {
   ComboboxInput,
   ComboboxOption,
   ComboboxOptions,
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
 } from "@headlessui/react";
 import { useState, type FormEvent, type KeyboardEvent } from "react";
 
@@ -25,18 +29,42 @@ type Props = {
 // 補完候補(後で Qiita のタグ一覧やキャッシュから取得する想定)
 const TAG_SUGGESTIONS = ["React"];
 
+// 投稿日範囲の選択肢
+type DateRange = "" | "3m" | "6m" | "1y";
+
+const DATE_RANGE_OPTIONS: { value: DateRange; label: string }[] = [
+  { value: "", label: "指定なし" },
+  { value: "3m", label: "3か月以内" },
+  { value: "6m", label: "半年以内" },
+  { value: "1y", label: "1年以内" },
+];
+
+// 選択された期間から `dateFrom` の文字列(YYYY-MM-DD)を算出
+function dateRangeToFrom(range: DateRange): string {
+  if (!range) return "";
+  const from = new Date();
+  switch (range) {
+    case "3m":
+      from.setMonth(from.getMonth() - 3);
+      break;
+    case "6m":
+      from.setMonth(from.getMonth() - 6);
+      break;
+    case "1y":
+      from.setFullYear(from.getFullYear() - 1);
+      break;
+  }
+  return from.toISOString().split("T")[0];
+}
+
 export default function SearchForm({ onSearch, onReset }: Props) {
   const [title, setTitle] = useState("");
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
+  const [dateRange, setDateRange] = useState<DateRange>("");
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
 
   const hasInput =
-    title.trim().length > 0 ||
-    dateFrom !== "" ||
-    dateTo !== "" ||
-    tags.length > 0;
+    title.trim().length > 0 || dateRange !== "" || tags.length > 0;
 
   // 入力内容で絞り込んだ補完候補(既に追加済みのタグは除外)
   // 入力が空のときは候補を表示しない(タイプ開始後のみ補完)
@@ -83,23 +111,30 @@ export default function SearchForm({ onSearch, onReset }: Props) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!hasInput) return;
-    onSearch?.({ title: title.trim(), dateFrom, dateTo, tags });
+    onSearch?.({
+      title: title.trim(),
+      dateFrom: dateRangeToFrom(dateRange),
+      dateTo: "",
+      tags,
+    });
   };
 
   const handleReset = () => {
     setTitle("");
-    setDateFrom("");
-    setDateTo("");
+    setDateRange("");
     setTags([]);
     setTagInput("");
     onReset?.();
   };
 
+  const selectedDateLabel =
+    DATE_RANGE_OPTIONS.find((o) => o.value === dateRange)?.label ?? "指定なし";
+
   return (
     <section className="border-b border-zinc-200 bg-orange-50">
       <form onSubmit={handleSubmit} className="mx-auto max-w-6xl px-6 py-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div>
+          <div className="md:col-span-2">
             <label
               htmlFor="search-title"
               className="mb-1 block text-sm text-zinc-600"
@@ -116,34 +151,41 @@ export default function SearchForm({ onSearch, onReset }: Props) {
             />
           </div>
           <div>
-            <label
-              htmlFor="search-date-from"
-              className="mb-1 block text-sm text-zinc-600"
-            >
-              投稿日(From)
-            </label>
-            <input
-              id="search-date-from"
-              type="date"
-              value={dateFrom}
-              onChange={(e) => setDateFrom(e.target.value)}
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="search-date-to"
-              className="mb-1 block text-sm text-zinc-600"
-            >
-              投稿日(To)
-            </label>
-            <input
-              id="search-date-to"
-              type="date"
-              value={dateTo}
-              onChange={(e) => setDateTo(e.target.value)}
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
-            />
+            <label className="mb-1 block text-sm text-zinc-600">投稿日</label>
+            <Listbox value={dateRange} onChange={setDateRange}>
+              <div className="relative">
+                <ListboxButton
+                  className={`flex w-full items-center justify-between rounded-lg border border-zinc-300 bg-white px-3 py-2 text-left focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500 ${
+                    dateRange ? "text-zinc-900" : "text-zinc-400"
+                  }`}
+                >
+                  <span>{selectedDateLabel}</span>
+                  <svg
+                    viewBox="0 0 20 20"
+                    className="size-4 text-zinc-400"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.24 4.38a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </ListboxButton>
+                <ListboxOptions className="absolute z-10 mt-1 w-full overflow-auto rounded-lg border border-zinc-200 bg-white py-1 shadow-lg focus:outline-none">
+                  {DATE_RANGE_OPTIONS.map((opt) => (
+                    <ListboxOption
+                      key={opt.value}
+                      value={opt.value}
+                      className="cursor-pointer px-3 py-2 text-sm data-focus:bg-green-50 data-focus:text-green-700"
+                    >
+                      {opt.label}
+                    </ListboxOption>
+                  ))}
+                </ListboxOptions>
+              </div>
+            </Listbox>
           </div>
         </div>
 
@@ -157,11 +199,7 @@ export default function SearchForm({ onSearch, onReset }: Props) {
           {tags.length > 0 && (
             <div className="mb-2 flex flex-wrap gap-2">
               {tags.map((tag) => (
-                <Tag
-                  key={tag}
-                  label={tag}
-                  onRemove={() => removeTag(tag)}
-                />
+                <Tag key={tag} label={tag} onRemove={() => removeTag(tag)} />
               ))}
             </div>
           )}
