@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import { createClient } from "@/lib/supabase/server";
+import { signOutAction } from "@/app/mypage/actions";
 
 import "./globals.css";
 
@@ -55,7 +56,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-screen flex-col bg-stone-50 text-zinc-900">
-        <Header user={user} />
+        <Header user={user} onSignOut={signOutAction} />
         {children}
       </body>
     </html>

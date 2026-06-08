@@ -10,9 +10,10 @@ type User = {
 
 type Props = {
   user: User | null;
+  onSignOut?: () => Promise<void>;
 };
 
-export default function Header({ user }: Props) {
+export default function Header({ user, onSignOut }: Props) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login";
   const isMyPage = pathname === "/mypage";
@@ -54,6 +55,7 @@ export default function Header({ user }: Props) {
                 )}
                 <button
                   type="button"
+                  onClick={() => void onSignOut?.()}
                   className="rounded-lg border border-zinc-300 bg-white px-4 py-1.5 font-medium hover:bg-zinc-50"
                 >
                   ログアウト
