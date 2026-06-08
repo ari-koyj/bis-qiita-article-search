@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Header from "@/components/Header";
 import { createClient } from "@/lib/supabase/server";
+import { toInitials } from "@/lib/utils";
 import { signOutAction } from "@/app/mypage/actions";
 
 import "./globals.css";
@@ -39,14 +40,11 @@ export default async function RootLayout({
           sessionUser.user_metadata?.user_name ??
           sessionUser.email?.split("@")[0] ??
           "user",
-        initials: (
+        initials: toInitials(
           sessionUser.user_metadata?.name ??
           sessionUser.user_metadata?.user_name ??
-          sessionUser.email ??
-          "U"
-        )
-          .slice(0, 2)
-          .toUpperCase(),
+          sessionUser.email
+        ),
       }
     : null;
 

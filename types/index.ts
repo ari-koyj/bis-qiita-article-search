@@ -1,14 +1,3 @@
-// Qiita API から取得して正規化した記事情報(lib/qiita.ts で使用)
-export type QiitaArticle = {
-  id: string;
-  title: string;
-  url: string;
-  tags: string[];
-  author: string;
-  authorInitials: string;
-  date: string; // YYYY/MM/DD
-};
-
 // 画面で扱う記事の型(Qiita API のレスポンスを整形したもの)
 export type Article = {
   id: string;
