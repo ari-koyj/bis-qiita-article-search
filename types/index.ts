@@ -1,4 +1,4 @@
-// Qiita API から取得して正規化した記事情報
+// Qiita API から取得して正規化した記事情報(lib/qiita.ts で使用)
 export type QiitaArticle = {
   id: string;
   title: string;
@@ -9,10 +9,33 @@ export type QiitaArticle = {
   date: string; // YYYY/MM/DD
 };
 
-// マイページに表示するおすすめ1件分(recommendレコード + 記事情報)
-export type MyRecommend = {
-  recommendId: string;
-  qiitaId: string;
-  // 記事取得に失敗した場合(記事削除・レート制限など)は null
-  article: QiitaArticle | null;
+// 画面で扱う記事の型(Qiita API のレスポンスを整形したもの)
+export type Article = {
+  id: string;
+  title: string;
+  url: string;
+  tags: string[];
+  author: string;
+  authorInitials: string;
+  date: string;
+};
+
+// /api/qiita のレスポンス型
+export type SearchResponse = {
+  items: Article[];
+  totalCount: number;
+  totalPages: number;
+};
+
+// おすすめ記事の型(Article に「誰が共有したか」を加えたもの)
+export type RecommendArticle = Article & {
+  recommendId: string; // Prisma Recommend.id(後で削除に使う)
+  recommendedBy: string;
+  recommendedByInitials: string;
+  isOwn: boolean; // 現在のログインユーザーが共有したものか
+};
+
+// /api/recommend のレスポンス型
+export type RecommendListResponse = {
+  items: RecommendArticle[];
 };

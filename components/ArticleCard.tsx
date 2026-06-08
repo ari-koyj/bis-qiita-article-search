@@ -37,13 +37,13 @@ export default function ArticleCard(props: Props) {
     <article className="flex flex-col rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md">
       <h2 className="font-bold leading-relaxed">{title}</h2>
 
-      <div className="mt-3 flex flex-wrap gap-1.5">
+      <div className="mt-3 mb-3 flex flex-wrap gap-1.5">
         {tags.map((tag) => (
           <Tag key={tag} label={tag} />
         ))}
       </div>
 
-      <div className="mt-3 flex items-center justify-between text-sm">
+      <div className="mt-auto flex items-center justify-between text-sm">
         <div className="flex items-center gap-2">
           <span className="flex size-6 items-center justify-center rounded-full bg-orange-100 text-xs font-medium text-orange-700">
             {authorInitials}
