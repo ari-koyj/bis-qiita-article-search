@@ -1,23 +1,10 @@
 import type { NextRequest } from "next/server";
-import type { Article, SearchResponse } from "@/types";
-
-// Qiita API のレスポンス型(必要なフィールドだけ抜粋)
-type QiitaItem = {
-  id: string;
-  title: string;
-  url: string;
-  tags: { name: string }[];
-  user: {
-    id: string;
-    profile_image_url: string;
-  };
-  created_at: string;
-};
+import { formatArticle, type QiitaItem } from "@/lib/qiita";
+import type { SearchResponse } from "@/types";
 
 export async function GET(req: NextRequest) {
   const sp = req.nextUrl.searchParams;
 
-  // クエリパラメータを取り出す
   const page = sp.get("page") ?? "1";
   const perPage = sp.get("per_page") ?? "21";
   const keyword = sp.get("keyword");
@@ -78,19 +65,8 @@ export async function GET(req: NextRequest) {
       maxPages,
     );
 
-    // 画面で扱いやすい形に整形
-    const formatted: Article[] = items.map((item) => ({
-      id: item.id,
-      title: item.title,
-      url: item.url,
-      tags: item.tags.map((t) => t.name),
-      author: item.user.id,
-      authorInitials: item.user.id.slice(0, 2).toUpperCase(),
-      date: item.created_at.split("T")[0].replace(/-/g, "/"),
-    }));
-
     const body: SearchResponse = {
-      items: formatted,
+      items: items.map(formatArticle),
       totalCount,
       totalPages,
     };
