@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import type { Recommend } from "@prisma/client";
 
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
@@ -30,7 +31,7 @@ export default async function MyPage() {
 
   // 各 qiitaId の記事情報を Qiita API から並列取得
   const items = await Promise.all(
-    recommends.map(async (r) => ({
+    recommends.map(async (r: Recommend) => ({
       recommendId: r.id,
       qiitaId: r.qiitaId,
       article: await fetchQiitaItem(r.qiitaId),
