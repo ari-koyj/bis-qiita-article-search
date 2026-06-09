@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || origin;
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/";
 
@@ -40,9 +41,9 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      return NextResponse.redirect(`${origin}${next}`);
+      return NextResponse.redirect(`${siteUrl}${next}`);
     }
   }
 
-  return NextResponse.redirect(`${origin}/login?error=auth_callback`);
+  return NextResponse.redirect(`${siteUrl}/login?error=auth_callback`);
 }
