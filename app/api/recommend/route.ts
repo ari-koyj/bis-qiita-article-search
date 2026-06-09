@@ -1,10 +1,13 @@
 import type { NextRequest } from "next/server";
+import type { Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
 import { fetchQiitaItem } from "@/lib/qiita";
 import { toInitials } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
 import type { RecommendArticle, RecommendListResponse } from "@/types";
+
+type RecommendWithUser = Prisma.RecommendGetPayload<{ include: { user: true } }>;
 
 // POST /api/recommend - おすすめ登録(ログイン必須)
 export async function POST(req: NextRequest) {
@@ -78,7 +81,7 @@ export async function GET() {
 
     // 2. 各 qiitaId について Qiita API を並列に叩いて記事情報を補完
     const enriched = await Promise.all(
-      recommends.map(async (r) => {
+      recommends.map(async (r: RecommendWithUser) => {
         const article = await fetchQiitaItem(r.qiitaId);
         if (!article) return null;
 
